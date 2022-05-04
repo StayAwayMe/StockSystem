@@ -1,0 +1,112 @@
+#container{
+    width:100%;
+    min-height: 100vh;
+    background-image: url('../../../staic/image/login.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+#modal{
+    background:rgba(70,110,173,.5);
+    width:80%;
+    height:80%;
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
+    display: flex;
+    justify-content: space-between;
+}
+#modal .txt{
+    width:45%;
+    padding-top: 10%;
+    padding-left:5%
+}
+#modal .txt h1{
+    font-size: 60px;
+    color:white;
+    font-weight: normal;
+    letter-spacing: 4px;
+}
+#modal .txt p{
+    color:white;
+    letter-spacing: 2px;
+}
+#modal .login{
+    width:30%;
+    background:white;
+    text-align: center;
+    padding-top:10%
+}
+#modal .login span{
+    /* padding: 4px 0; */
+    letter-spacing: 4px;
+    font-size: 18px;
+    /* border-bottom: 1px solid blue; */
+    font-weight: bold;
+    /* font-family: cursive; */
+}
+
+#modal .login .form{
+    margin-top:50px;
+    padding-left:10%;
+    padding-right:10%;
+}
+#modal .login .form .user,#modal .login .form .phone,#modal .login .form .pwd{
+    width:88%;
+    text-align: left;
+    height:50px;
+    line-height: 50px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.user-show{
+    background: "blue";
+    width:"100%";
+    height: "1px",
+}
+.pwd-show{
+    background: "blue";
+    width:"100%";
+    height: "1px",
+}
+.xuanzhong{
+    border-bottom: 1px solid blue;
+}
+.uncheck{
+    border-bottom: 1px solid #e5e5e5;
+}
+#modal .login button{
+    width:80%;
+    background:#3a5edc;
+    /* color:white; */
+    /* border:none; */
+    height:40px;
+    line-height: 40px;
+    margin-top:30px;
+    /* box-shadow:0px 3px 6px 1px #3a5edc; */
+}
+#modal .login button:hover{
+    cursor: pointer;
+}
+.login input{
+    margin-left:5px;
+    /* border:none; */
+    height:40px;
+    width:calc(100% - 40px)
+}
+.login input:focus{
+	/* border:none; */
+    outline: none;
+}
+#ziyuanxhdpi{
+    color:blue
+}
+#phone{
+    color: blue;
+}
+#mima{
+    color:blue;
+}

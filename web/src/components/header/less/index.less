@@ -1,0 +1,141 @@
+@white: #fff;
+@gray: #F0F2F5;
+.ant-layout-header {
+  height: 91px;
+  position: relative;
+  padding: 0 12px 0 0;
+  background: @white;
+  margin-bottom: 6px;
+}
+
+#timeLine {
+  padding: 30px 0;
+  .ant-timeline-item{
+    padding-bottom: 40px;
+  }
+  .ant-timeline-item-label{
+    width: calc(30% - 15px);
+  }
+  .ant-timeline-item-tail, .ant-timeline-item-head{
+    left: 30%
+  }
+  .ant-timeline-item-content{
+    left: calc(30% - 4px);
+    width: calc(62% - 14px);
+    p{
+      margin-bottom: 0.4em;
+    }
+  }
+}
+.connected{
+  width: 13px !important;
+  height:13px !important;
+  background-color:#28B463 !important;
+  border-radius:100% !important;
+  margin-top:18px !important;
+  float:left !important;
+}
+.left {
+  float: left;
+  line-height: 50px;
+  vertical-align: middle;
+  padding: 0 18px;
+  cursor: pointer;
+  .spanStyle{
+    float: right ;
+    font-size: 13px ;
+    margin-left: 4px ;
+  }
+}
+.right {
+  float: right;
+  line-height: 50px;
+  vertical-align: middle;
+  padding: 0 18px;
+  cursor: pointer;
+  .spanStyle{
+    float: right ;
+    font-size: 13px ;
+    margin-left: 4px ;
+  }
+  
+  .slow{
+    width: 13px;
+    height:13px;
+    background-color:#F4D03F;
+    border-radius:100%;
+    margin-top:18px;
+    float:left
+  }
+  .slower{
+    width: 13px;
+    height:13px;
+    background-color:#626567;
+    border-radius:100%;
+    margin-top:18px;
+    float:left
+  }
+  .noconnected{
+    width: 13px;
+    height:13px;
+    background-color:#FF0000;
+    border-radius:100%;
+    margin-top:18px;
+    float:left
+  }
+  &:hover{
+    background-color: rgba(230, 247, 255, 1);
+  }
+}
+
+#tabNav .ant-tabs-tab {
+  background-color: @white;
+  border: 1px solid @white;
+  border-right: 0;
+  border-left: 0;
+  margin-left: 0;
+  padding: 0;
+}
+
+#tabNav .ant-tabs-tab::before {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 1px;
+  height: 1.6em;
+  background-color: @gray;
+  transform: translateY(-50%);
+  content: '';
+}
+
+#tabNav .ant-tabs-tab-active {
+  border-bottom-color: @gray;
+  border-top-color: @gray;
+  background: @gray;
+}
+
+#tabNav .ant-tabs-tab-active::before {
+  position: absolute;
+  top: 18px;
+  right: 100%;
+  width: 1px;
+  height: 42px;
+  content: '';
+}
+
+#tabNav .ant-tabs-tab-remove {
+  margin-left: -8px;
+  margin-right: 8px;
+}
+
+#favorAndHistory .ant-menu-item-selected {
+  background-color: white;
+}
+
+#favorAndHistory .ant-dropdown-menu-item-active {
+  background-color: white;
+}
+
+#editionUp .ant-dropdown-menu-item-active {
+  background-color: white;
+}

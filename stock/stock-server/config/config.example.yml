@@ -1,0 +1,19 @@
+db:
+    driver: "mysql"
+    connection: "user:password@(host:port)/db"
+
+environment: "test"
+
+log:
+    level: "debug"
+
+http:
+    host: 0.0.0.0
+    port: 80
+
+session:
+    driver: "cookie"
+    secret: "acQlZNhdUDXpX8rTeEX8nKeze8Pocihu"
+    connection: ""
+    login_max_age_seconds: 604800
+    vault_max_age_seconds: 21600
