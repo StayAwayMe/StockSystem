@@ -28,7 +28,7 @@ import {
 } from "antd";
 import $ from "jquery";
 const { Option } = Select;
-const {Search} =Input
+const { Search } = Input;
 
 const layout = {
   labelCol: { span: 5 },
@@ -57,9 +57,9 @@ class Home extends Component {
       buyId: 0,
       sellId: 0,
       allData: [],
-      maxPosition:0,
-      allStocks:[],
-      buyVisible:false,
+      maxPosition: 0,
+      allStocks: [],
+      buyVisible: false,
     };
     this.formRef = React.createRef();
     this.addModalRef = React.createRef();
@@ -83,7 +83,7 @@ class Home extends Component {
     });
   };
   async componentDidMount() {
-    this.buyallData()
+    this.buyallData();
     const name = store.getState()["info"];
     this.initfetch(1);
     this.emmm();
@@ -101,7 +101,7 @@ class Home extends Component {
       this.setState({ allData: list });
     });
   };
-  buyallData=()=>{
+  buyallData = () => {
     axios({
       url: `/v1/stocks?page_id=0&page_size=99999`,
       method: "GET",
@@ -109,10 +109,10 @@ class Home extends Component {
       //   "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
       // },
     }).then((res2) => {
-      const {list } = res2
-      this.setState({allStocks:list})
+      const { list } = res2;
+      this.setState({ allStocks: list });
     });
-  }
+  };
   render() {
     const { positionVisible } = this.state;
     const columns = [
@@ -258,11 +258,11 @@ class Home extends Component {
             <a
               onClick={() => {
                 this.setState({ fastSell: true, sellId: record.id }, () => {
-                  this.state.allData.map(item=>{
-                    if(item.id===record.id){
-                      this.setState({maxPosition:item.count})
+                  this.state.allData.map((item) => {
+                    if (item.id === record.id) {
+                      this.setState({ maxPosition: item.count });
                     }
-                  })
+                  });
                   this.fastSellRef.current.setFieldsValue({ id: record.id });
                 });
               }}
@@ -277,29 +277,27 @@ class Home extends Component {
         render: (text, record) => {
           return (
             <a
-            onClick={()=>{
-              let id = 0;
-              this.state.allStocks.map(item=>{
-                if(item.name === record.name){
-                  id = item.id
+              onClick={() => {
+                let id = 0;
+                this.state.allStocks.map((item) => {
+                  if (item.name === record.name) {
+                    id = item.id;
+                  }
+                });
+                if (id == 0) {
+                  message.success("系统异常");
+                } else {
+                  this.setState({ buyVisible: true }, () => {
+                    this.fastVisibleRef.current.setFieldsValue({ id });
+                  });
                 }
-              })
-              if(id==0){
-                message.success('系统异常')
-              }else{
-
-                this.setState({buyVisible:true},()=>{
-                  this.fastVisibleRef.current.setFieldsValue({id})
-                })
-              }
-            }}
+              }}
             >
               快速加仓
             </a>
           );
         },
       },
-      
     ];
     return (
       <div>
@@ -309,22 +307,25 @@ class Home extends Component {
             name="horizontal_login"
             layout="inline"
             ref={this.formRef}
-            onFinish={() => {
-              
+            onFinish={async() => {
               this.initfetch(1);
               this.setState({ current: 1 });
-              axios({
+              await axios({
                 url: `/v1/mine-stocks?page_id=1&page_size=10`,
                 method: "GET",
                 // data: obj1,
               }).then((res) => {
                 let { list, total } = res;
-                this.setState({
-                  position_total: total,
-                  position_data: list,
-                  position_current: page_id,
-                });
-                message.success('刷新成功！')
+                this.setState(
+                  {
+                    position_total: total,
+                    position_data: list,
+                    position_current: 1,
+                  },
+                  () => {
+                    message.success("刷新成功！");
+                  }
+                );
               });
             }}
           >
@@ -686,11 +687,11 @@ class Home extends Component {
                   //   })
                   // }}
                 >
-                  {
-                    this.state.allStocks.map(item=>(
-                      <Option label={item.name} value={item.id} key={item.id}>{item.name}</Option>
-                    ))
-                  }
+                  {this.state.allStocks.map((item) => (
+                    <Option label={item.name} value={item.id} key={item.id}>
+                      {item.name}
+                    </Option>
+                  ))}
                 </Select>
               </Form.Item>
               <Form.Item
@@ -768,8 +769,7 @@ class Home extends Component {
                       );
                     });
                   },
-                  onCancel() {
-                  },
+                  onCancel() {},
                 });
               }
             }}
@@ -788,19 +788,19 @@ class Home extends Component {
 
                 <Select
                   style={{ width: "20vw" }}
-                  onChange={(res)=>{
-                    this.state.allData.map(item=>{
-                      if(item.id==res){
-                        this.setState({maxPosition:item.count});
+                  onChange={(res) => {
+                    this.state.allData.map((item) => {
+                      if (item.id == res) {
+                        this.setState({ maxPosition: item.count });
                       }
-                    })
+                    });
                   }}
                 >
-                  {
-                    this.state.allData.map(item=>(
-                      <Option label={item.name} value={item.id} key={item.id}>{item.name}</Option>
-                    ))
-                  }
+                  {this.state.allData.map((item) => (
+                    <Option label={item.name} value={item.id} key={item.id}>
+                      {item.name}
+                    </Option>
+                  ))}
                 </Select>
               </Form.Item>
               <Form.Item
@@ -808,7 +808,11 @@ class Home extends Component {
                 label="出售数量(手)"
                 rules={[{ required: true, message: "输入出售数量" }]}
               >
-                <InputNumber max={this.state.maxPosition} min={1} style={{ width: "20vw" }} />
+                <InputNumber
+                  max={this.state.maxPosition}
+                  min={1}
+                  style={{ width: "20vw" }}
+                />
               </Form.Item>
             </Form>
           </Modal>
@@ -863,8 +867,7 @@ class Home extends Component {
                     });
                   });
                 },
-                onCancel() {
-                },
+                onCancel() {},
               });
             }}
             onCancel={() => {
@@ -880,7 +883,7 @@ class Home extends Component {
                 {/* <Input disabled style={{ width: "20vw" }} /> */}
                 <Select
                   style={{ width: "20vw" }}
-                  onChange={(res)=>{
+                  onChange={(res) => {
                     // this.state.allData.map(item=>{
                     //   if(item.id==res){
                     //     this.setState({maxPosition:item.count});
@@ -889,11 +892,11 @@ class Home extends Component {
                   }}
                   disabled
                 >
-                  {
-                    this.state.allStocks.map(item=>(
-                      <Option label={item.name} value={item.id} key={item.id}>{item.name}</Option>
-                    ))
-                  }
+                  {this.state.allStocks.map((item) => (
+                    <Option label={item.name} value={item.id} key={item.id}>
+                      {item.name}
+                    </Option>
+                  ))}
                 </Select>
               </Form.Item>
               <Form.Item
@@ -980,23 +983,23 @@ class Home extends Component {
               >
                 <Select
                   style={{ width: "20vw" }}
-                  onChange={(res)=>{
-                    console.log(res,'res');
-                    this.state.allData.map(item=>{
-                      if(item.id==res){
-                        this.setState({maxPosition:item.count},()=>{
-                          console.log(this.state.maxPosition,'max');
+                  onChange={(res) => {
+                    console.log(res, "res");
+                    this.state.allData.map((item) => {
+                      if (item.id == res) {
+                        this.setState({ maxPosition: item.count }, () => {
+                          console.log(this.state.maxPosition, "max");
                         });
                       }
-                    })
+                    });
                   }}
                   disabled
                 >
-                  {
-                    this.state.allData.map(item=>(
-                      <Option label={item.name} value={item.id} key={item.id}>{item.name}</Option>
-                    ))
-                  }
+                  {this.state.allData.map((item) => (
+                    <Option label={item.name} value={item.id} key={item.id}>
+                      {item.name}
+                    </Option>
+                  ))}
                 </Select>
                 {/* <Input disabled style={{ width: "20vw" }} /> */}
               </Form.Item>
@@ -1005,7 +1008,11 @@ class Home extends Component {
                 label="卖出数量(手)"
                 rules={[{ required: true, message: "输入出售数量" }]}
               >
-                <InputNumber min={0} max={this.state.maxPosition} style={{ width: "20vw" }} />
+                <InputNumber
+                  min={0}
+                  max={this.state.maxPosition}
+                  style={{ width: "20vw" }}
+                />
               </Form.Item>
             </Form>
           </Modal>
@@ -1014,9 +1021,9 @@ class Home extends Component {
             visible={this.state.buyVisible}
             onOk={() => {
               // this.setState({ fastBuy: false });
-              const { id, count } = this.fastVisibleRef.current.getFieldsValue();
-              
-              
+              const { id, count } =
+                this.fastVisibleRef.current.getFieldsValue();
+
               let obj = {
                 id,
                 count: count - 0,
@@ -1057,14 +1064,20 @@ class Home extends Component {
                     method: "GET",
                     data: obj1,
                   }).then((res2) => {
-                    const {list,total} = res2
-                    this.setState({ buyVisible: false,position_data:list,position_total:total }, () => {
-                      this.fastVisibleRef.current.resetFields();
-                    });
+                    const { list, total } = res2;
+                    this.setState(
+                      {
+                        buyVisible: false,
+                        position_data: list,
+                        position_total: total,
+                      },
+                      () => {
+                        this.fastVisibleRef.current.resetFields();
+                      }
+                    );
                   });
                 },
-                onCancel() {
-                },
+                onCancel() {},
               });
             }}
             onCancel={() => {
@@ -1080,16 +1093,14 @@ class Home extends Component {
                 {/* <Input disabled style={{ width: "20vw" }} /> */}
                 <Select
                   style={{ width: "20vw" }}
-                  onChange={(res)=>{
-                  
-                  }}
+                  onChange={(res) => {}}
                   disabled
                 >
-                  {
-                    this.state.allStocks.map(item=>(
-                      <Option label={item.name} value={item.id} key={item.id}>{item.name}</Option>
-                    ))
-                  }
+                  {this.state.allStocks.map((item) => (
+                    <Option label={item.name} value={item.id} key={item.id}>
+                      {item.name}
+                    </Option>
+                  ))}
                 </Select>
               </Form.Item>
               <Form.Item
