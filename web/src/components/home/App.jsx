@@ -310,13 +310,27 @@ class Home extends Component {
             layout="inline"
             ref={this.formRef}
             onFinish={() => {
+              
               this.initfetch(1);
               this.setState({ current: 1 });
+              axios({
+                url: `/v1/mine-stocks?page_id=1&page_size=10`,
+                method: "GET",
+                // data: obj1,
+              }).then((res) => {
+                let { list, total } = res;
+                this.setState({
+                  position_total: total,
+                  position_data: list,
+                  position_current: page_id,
+                });
+                message.success('刷新成功！')
+              });
             }}
           >
             <Form.Item>
               <Button htmlType="submit" type="primary">
-                查询
+                刷新
               </Button>
             </Form.Item>
           </Form>
